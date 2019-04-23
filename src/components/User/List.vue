@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Axios from "axios";
+import Axios from "@/axios.js";
 
 export default {
   name: "user-list",
@@ -47,7 +47,7 @@ export default {
     };
   },
   mounted() {
-    Axios.get("http://localhost:3000/users")
+    Axios.get("/users")
       .then(res => {
         console.log("Data loaded!");
         this.users = res.data;
@@ -63,7 +63,7 @@ export default {
       if (confirmed === "DELETE") {
         console.log("Delete");
 
-        Axios.delete("http://localhost:3000/users/" + id)
+        Axios.delete("/users/" + id)
           .then(() => {
             this.users = this.users.filter(item => item.id !== id);
           })

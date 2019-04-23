@@ -25,7 +25,7 @@
 <script>
 // @ is an alias to /src
 import UserForm from "@/components/User/Form.vue";
-import Axios from "axios";
+import Axios from "@/axios.js";
 
 export default {
   name: "user-edit",
@@ -49,7 +49,7 @@ export default {
     deleteUser: function() {
       const confirmed = prompt("Confirm delete this item, type DELETE");
       if (confirmed === "DELETE") {
-        Axios.delete("http://localhost:3000/users/" + this.$route.params.id, this.user)
+        Axios.delete("/users/" + this.$route.params.id, this.user)
           .then(() => {
             this.$router.push({ name: "user-index" });
           })
@@ -59,7 +59,7 @@ export default {
       }
     },
     updateUser: function() {
-      Axios.patch("http://localhost:3000/users/" + this.$route.params.id, this.user)
+      Axios.patch("/users/" + this.$route.params.id, this.user)
         .then(() => {
           this.$router.push({ name: "user-index" });
         })
@@ -68,7 +68,7 @@ export default {
         });
     },
     loadUser: function() {
-      Axios.get("http://localhost:3000/users/" + this.$route.params.id)
+      Axios.get("/users/" + this.$route.params.id)
         .then(res => {
           console.log(res);
           this.user = res.data;

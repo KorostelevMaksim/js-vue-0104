@@ -153,22 +153,23 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition-property: opacity;
-  transition-duration: .25s;
+  transition-duration: 0.15s;
 }
 
 .fade-enter-active {
-  transition-delay: .25s;
+  transition-delay: 0.15s;
 }
 
-.fade-enter, .fade-leave-active {
-  opacity: 0
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 
 #nprogress .bar {
   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-    height: 4px !important;
-  }
-
+  height: 4px !important;
+}
 </style>

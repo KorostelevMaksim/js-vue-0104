@@ -21,7 +21,7 @@
 
 <script>
 import UserForm from "@/components/User/Form.vue";
-import Axios from "axios";
+import Axios from "@/axios.js";
 
 export default {
   name: "user-create",
@@ -36,7 +36,7 @@ export default {
   methods: {
     createUser: function() {
       this.user.id = 0;
-      Axios.post("http://localhost:3000/users/", this.user)
+      Axios.post("/users/", this.user)
         .then(() => {
           this.$router.push({ name: "user-index" });
         })
