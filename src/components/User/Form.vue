@@ -1,49 +1,88 @@
 <template>
-    <div class="user-form">
-
+    <div class="user-form" @keyup.enter="submit" @keyup.esc="$router.push({name: 'user-index'})">
         <div class="form-group">
             <label>Имя</label>
-            <input type="text" class="form-control" v-model="user.firstName" />
+            <input type="text" class="form-control" v-model="user.firstName"/>
         </div>
         <div class="form-group">
             <label>Фамилия</label>
-            <input type="text" class="form-control" v-model="user.lastName" />
+            <input type="text" class="form-control" v-model="localUser.lastName" />
         </div>
+        
         <div class="form-group">
-            <label>Баланс</label>
-            <input type="text" class="form-control" v-model="user.balance" />
+            <label>Email</label>
+            <input type="text" class="form-control" v-model="localUser.email" />
         </div>
         <div class="form-group">
             <label>Телефон</label>
-            <input type="text" class="form-control" v-model="user.phone" />
+            <input type="text" class="form-control" v-model="localUser.phone" />
         </div>
         <div class="form-group">
             <label>Адрес</label>
-            <input type="text" class="form-control" v-model="user.address" />
+            <input type="text" class="form-control" v-model="localUser.address" />
         </div>
         <div class="form-group">
             <label>Компания</label>
-            <input type="text" class="form-control" v-model="user.company" />
+            <input type="text" class="form-control" v-model="localUser.company" />
         </div>
-
-        <button type="submit" class="btn btn-primary">Update</button>
-        <router-link :to="{ name: 'user-index'}" class="ml-2 btn btn-outline-secondary">Cancel</router-link>
+        <div class="form-group">
+            <label>Баланс</label>
+            <input type="text" class="form-control" v-model="localUser.balance" />
+        </div>
 
     </div>
 </template>
 
 <script>
 
+    import isEqual from "lodash/isEqual";
+
     export default {
-        name: "user-form",
+        name: "UserForm",
         props: {
             user: { type: Object, required: true, default: {} },
             action: String
         },
-        data: function(){
-            return {
-                //user: []
+        model: {
+            prop: 'user',
+            event: 'update'
+        },
+        data: () => ({
+            localUser: null
+        }),
+        watch: {
+            localUser: {
+                deep: true,
+                handler(){
+                    console.log('Try emit update');
+                    if(!isEqual(this.localUser, this.user)){
+                        console.log('Emit update');
+                        this.$emit('update', Object.assign({}, this.localUser))
+                    }
+                }
+            },
+            user: {
+                deep: true,
+                handler() {
+                    if(!isEqual(this.localUser, this.user)){
+                        console.log('User update');
+                        this.loadUser();
+                    }
+                }
             }
+        },
+        methods: {
+            'submit': function(){
+                console.log('submit');
+                this.$emit('save', {test: 'test'});
+            },
+            'loadUser': function(){
+                this.localUser = Object.assign({}, this.user)
+            }
+        },
+        created(){
+            console.log('Created');
+            this.loadUser();
         }
     }
     
