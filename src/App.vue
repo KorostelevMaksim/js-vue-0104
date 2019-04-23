@@ -31,7 +31,9 @@
           </div>
         </nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <router-view />
+          <transition name="fade" mode="out-in">
+            <router-view />
+          </transition>
         </main>
       </div>
     </div>
@@ -150,4 +152,23 @@ body {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .25s;
+}
+
+.fade-enter-active {
+  transition-delay: .25s;
+}
+
+.fade-enter, .fade-leave-active {
+  opacity: 0
+}
+
+#nprogress .bar {
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    height: 4px !important;
+  }
+
 </style>

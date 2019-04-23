@@ -1,15 +1,15 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./pages/Home.vue";
+import NProgress from "nprogress";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
       name: "home",
-      component: Home,
+      component: () => import("./pages/Home.vue"),
     },
     {
       path: "/users/",
@@ -28,3 +28,16 @@ export default new Router({
     },
   ],
 });
+
+router.beforeResolve((to, from, next) => {
+  if (to.path) {
+    NProgress.start();
+  }
+  next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
+});
+
+export default router;
