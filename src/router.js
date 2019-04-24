@@ -14,6 +14,9 @@ const router = new Router({
     {
       path: "/users/",
       name: "user-index",
+      meta: {
+        requiresAuth: true,
+      },
       component: () => import("./pages/User/index.vue"),
     },
     {
@@ -26,6 +29,11 @@ const router = new Router({
       name: "user-edit",
       component: () => import("./pages/User/edit.vue"),
     },
+    {
+      path: "/auth/login",
+      name: "auth-login",
+      component: () => import("./pages/Auth/login.vue"),
+    },
   ],
 });
 
@@ -34,6 +42,23 @@ router.beforeResolve((to, from, next) => {
     NProgress.start();
   }
   next();
+});
+
+router.beforeEach((to, from, next) => {
+  console.log("e");
+
+  if (to.matched.some(route => route.meta.requiresAuth)) {
+    if (localStorage.getItem("PERMISSION") === "no") {
+      next({
+        path: "/auth/login",
+        query: { redirect: to.fullPath },
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 router.afterEach(() => {
