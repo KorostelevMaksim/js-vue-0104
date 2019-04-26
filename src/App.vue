@@ -11,19 +11,19 @@
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
                 <router-link to="/" active-class="active" exact class="nav-link">
-                  <span data-feather="home"></span>
+                  <i class="fas fa-home"></i>
                   Home
                 </router-link>
               </li>
 
               <li class="nav-item">
                 <router-link to="/users" active-class="active" class="nav-link">
-                  <span data-feather="users"></span>
+                  <i class="fas fa-user"></i>
                   Users
                 </router-link>
               </li>
@@ -61,7 +61,7 @@ body {
  */
 
 .sidebar {
-  position: fixed;
+  position: fixed !important;
   top: 0;
   bottom: 0;
   left: 0;

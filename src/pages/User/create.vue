@@ -13,9 +13,7 @@
     <button type="button" class="btn btn-primary" @click="createUser">
       Create
     </button>
-    <router-link :to="{ name: 'user-index' }" class="ml-2 btn btn-outline-secondary"
-      >Cancel</router-link
-    >
+    <router-link :to="{ name: 'user-index' }" class="ml-2 btn btn-outline-secondary">Cancel</router-link>
   </div>
 </template>
 

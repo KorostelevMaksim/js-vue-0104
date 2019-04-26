@@ -16,9 +16,7 @@
     <button type="button" class="btn btn-danger ml-2" @click="deleteUser">
       Delete
     </button>
-    <router-link :to="{ name: 'user-index' }" class="ml-2 btn btn-outline-secondary"
-      >Cancel</router-link
-    >
+    <router-link :to="{ name: 'user-index' }" class="ml-2 btn btn-outline-secondary">Cancel</router-link>
   </div>
 </template>
 
