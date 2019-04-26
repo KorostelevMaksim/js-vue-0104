@@ -23,18 +23,17 @@ export default {
     options: {
       type: Object,
       required: true,
-      default: function () {
+      default: function() {
         return {
           step: null,
           showPages: null,
-          countItems: null
-        }
-      }
+          countItems: null,
+        };
+      },
     },
     currentPage: {
       type: Number,
       required: true,
-
     },
   },
   model: {

@@ -1,13 +1,10 @@
 <template>
   <div class="data-grid">
-    <div class="row mb-3">
+    <div class="form-row align-items-center justify-content-between mb-3">
       <div class="col">
-        <pagination
-          :options="{ step: offset, showPages: showPages, countItems: countItems }"
-          v-model="currentPage"
-        ></pagination>
+        <search v-model="query"></search>
       </div>
-      <div class="col-1">
+      <div class="col-auto">
         <select-offset v-model="offset" limit="50" stepOffset="5"></select-offset>
       </div>
     </div>
@@ -59,24 +56,36 @@
 import Axios from "@/axios.js";
 import Pagination from "./Pagination";
 import SelectOffset from "./SelectOffset";
+import Search from "./Search";
 
 export default {
   name: "DataGrid",
-  components: { SelectOffset, Pagination },
+  components: { Search, SelectOffset, Pagination },
   data: function() {
     return {
       users: [],
       currentPage: 0,
       offset: 10,
       showPages: 5,
+      query: "",
     };
   },
   computed: {
     dataGrid: function() {
-      return this.users.filter(
-        (item, index) =>
-          index >= this.currentPage * this.offset && index < this.currentPage * this.offset + this.offset,
-      );
+      console.log("---");
+      return this.users
+        .filter(item =>
+          this.query.length > 1
+            ? ~item.firstName.toLowerCase().indexOf(this.query.toLowerCase()) ||
+              ~item.lastName.toLowerCase().indexOf(this.query.toLowerCase()) ||
+              ~item.email.toLowerCase().indexOf(this.query.toLowerCase()) ||
+              ~item.phone.toLowerCase().indexOf(this.query.toLowerCase())
+            : true,
+        )
+        .filter(
+          (item, index) =>
+            index >= this.currentPage * this.offset && index < this.currentPage * this.offset + this.offset,
+        );
     },
     countItems: function() {
       return this.users.length;
