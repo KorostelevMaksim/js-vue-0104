@@ -58,6 +58,7 @@ import Pagination from "./Pagination";
 import SelectOffset from "./SelectOffset";
 import Search from "./Search";
 
+
 export default {
   name: "DataGrid",
   components: { Search, SelectOffset, Pagination },
